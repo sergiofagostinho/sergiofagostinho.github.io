@@ -1,0 +1,15 @@
+---
+layout: post
+title: Trouble with MSMQ
+date: '2013-08-09T15:18:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- MSMQ
+- Windows
+- NetBIOS
+modified_time: '2013-08-09T15:33:13.799+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-6579426887591780412
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2013/08/trouble-with-msmq.html
+---
+
+This week I had an interesting issue with a project that used <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms711472(v=vs.85).aspx" target="_blank">MSMQ</a>. The issue was that I was sending messages using the <a href="http://msdn.microsoft.com/en-us/library/system.messaging.messagequeue.aspx" target="_blank">MessageQueue</a> class, but the messages didn't get there. No exception, no error code, nothing in the Event Viewer. Then I started "mmc", and added the "Computer Management" snap-in, and navigated to Services and Applications &gt; Message Queuing. There I found that all my queues were OK (Private Queues), but no message was getting there. Then I found some errors in the "Outgoing Queues" folder, telling me that the queue did not exist.<br />So, what was the issue? Well, it happens that the NetBIOS name on my machine did not match my computer name. Our machine names are based on a convention which includes the &nbsp;user surname, and mine is a little bit longer that most my colleague developers, which goes over the 15 character limit for <a href="http://support.microsoft.com/kb/909264/en-gb" target="_blank">NetBIOS naming conventions</a>. Probably the administrator that configured my machine just cut the last character from the NetBIOS name, and never looked back again...

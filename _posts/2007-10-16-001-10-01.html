@@ -1,0 +1,14 @@
+---
+layout: post
+title: 0.01 * 10 != 0.1
+date: '2007-10-16T10:30:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- Java
+- ".Net"
+modified_time: '2015-04-23T15:14:47.709+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-1848153873482127045
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2007/10/001-10-01.html
+---
+
+<span style="font-family: arial;">0.01 * 10 == 0.099999994</span><br /><br />...if you are using single precision floating-point variables, also known as <span style="font-weight: bold;">float</span>s in C#. The solution? Using the <a href="http://msdn2.microsoft.com/en-us/library/system.decimal%28vs.80%29.aspx">decimal</a> data type (or, if you are a Java developer, the <a href="http://java.sun.com/javase/6/docs/api/java/math/BigDecimal.html">BigDecimal</a> class).<br />Although I didn't test it, this seems to be an issue in several similar programming languages, which use <a href="http://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> data types. The problem is that not all real decimal numbers are directly representable in binary (e.g. 0.01), and as such are approximated. The solution involves using a special binary notation to support the accuracy required for financial applications.<br /><br />Until next time, may you enjoy being surprised with something you though for sure it was true, but it was not, and you should have known better.

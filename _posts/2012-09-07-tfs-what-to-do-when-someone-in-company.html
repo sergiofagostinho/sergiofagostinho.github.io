@@ -1,0 +1,14 @@
+---
+layout: post
+title: 'TFS: what to do when someone in company leaves or their PC dies?'
+date: '2012-09-07T16:24:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- TFS
+- Visual Studio
+modified_time: '2012-09-07T16:24:04.683+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-436983181763800712
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/tfs-what-to-do-when-someone-in-company.html
+---
+
+The title is self-explaning :)<br /><br /><pre>cd C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE<br />tf workspace /delete <b>workspace</b>;<b>mydomain</b>\<b>myuser </b>/s:http://<b>server:port</b>/<b>tfs_instance_name</b><br /> <br /><br />A deleted workspace cannot be recovered.<br />Workspace 'workspace;mydomain\myuser' on server 'http://server:port/tfs_instance_name' has 32 pending change(s).<br />Are you sure you want to delete the workspace? (Yes/No) y<br /></pre><br />Typically the workspace has the same name as your machine.<br /><br /><i>Note: this is basically a <a href="http://pontonetpt.org/blogs/labs2/archive/2011/08/16/tfs-undo-pending-changes-a-algu-233-m-que-saiu-da-empresa-ou-cujo-pc-morreu.aspx" target="_blank">repost from my previous blog</a>.</i>

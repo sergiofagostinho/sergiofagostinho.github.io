@@ -1,0 +1,17 @@
+---
+layout: post
+title: Creating a GIT repository in Windows for cloud storage
+date: '2012-09-04T15:21:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- Powershell
+- Sky Drive
+- Dropbox
+- Google Drive
+- git
+modified_time: '2012-09-05T09:11:41.785+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-7922880299685797838
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/creating-git-repository-in-windows-for.html
+---
+
+One of the cool uses for cloud storage (such as <a href="https://www.dropbox.com/" target="_blank">Dropbox</a>, <a href="https://skydrive.live.com/" target="_blank">SkyDrive</a> or <a href="https://drive.google.com/" target="_blank">Google Drive</a>) is as a git source code repository for your pet projects. Here's how to get started it in Windows.<br />But first, a&nbsp;couple of <a href="http://www.thatsticker.com/ASSUMPTION_IS_THE_MOTHER_OF_ALL_FUCK_UPS.JPG" target="_blank">assumptions</a>:<br /><br /><ul><li>You have in your first machine a "Projects/Sandbox" folder with an existing project (e.g. a Visual Studio solution) and a "Dropbox" folder&nbsp;synched&nbsp;with the cloud; on the second machine a "Projects2" without any code and " Dropbox2" folder synched with the cloud. "dropbox" is the name of the remote repository.</li><li>You've previously added you git "bin" directory to your PATH environment variable.</li><li>You have&nbsp;<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd835506(v=vs.85).aspx" target="_blank">Powershell</a>&nbsp;installed (it's available for Windows XP or later). And yes, you could use the "classic" command prompt, but it's not as cool :) Really, if you're not familiar it's a good time to start using it.</li></ul>So, launch Powershell and do the following:<br /><br /><pre># creating the remote repository</pre><pre>cd "C:\Dropbox\repositories"<br /></pre><pre>git init --bare sandbox.git</pre><pre></pre><pre># creating the local repository and first commit</pre><pre>cd "C:\Projects\Sandbox"</pre><pre>git init .</pre><pre>git remote add gdrive "C:\Dropbox\repositories\sandbox.git"</pre><pre>git add .</pre><pre>git commit -m "Initial commit"</pre><pre>git push dropbox master</pre><pre></pre><pre># on a second machine, getting the repository</pre><pre>cd "C:\Projects2"</pre><pre>git clone -o gdrive "C:\Dropbox\repositories\sandbox.git"</pre><pre></pre><div>Since I'm <a href="http://git-scm.com/book" target="_blank">no expert on git</a>, feel free to drop any comment about it Also, these instructions are adapted from&nbsp;<a href="http://rogerstringer.com/2012/04/16/using-dropbox-as-a-git-repository" target="_blank">this post</a>, and mostly unchanged, as Powershell uses a UNIX-like syntax (actually, it uses aliases to do this, but you get the same result).<br /><br /><b>Edit (2012-09-05):</b><br />It seems that Google Drive has some issues&nbsp;syncing&nbsp;some files (e.g. HEAD and config) on Windows 7. The problem has been&nbsp;<a href="http://productforums.google.com/forum/#!topic/drive/qLdqw7--YlY" target="_blank">reported by other users.</a> A workaround I found is to restart Google Drive when that happens, but that's not really interesting. I don't have these problems with Dropbox, though, so I recommend it instead. Haven't tested with SkyDrive yet.</div>

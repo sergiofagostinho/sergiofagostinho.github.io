@@ -1,0 +1,15 @@
+---
+layout: post
+title: How to find out which process is using an IP port
+date: '2015-07-14T15:37:00.003+01:00'
+author: Sérgio Agostinho
+tags:
+- Linux
+- Windows
+- IP
+modified_time: '2015-07-14T15:37:38.857+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-5515589259307492987
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/07/how-to-find-out-which-process-is-using.html
+---
+
+Imagine that an unknown process is using port 8080 and you need to find out which one is it.<br /><br />On Linux (and probably other UNIX-like operating systems you can do the following:<br /><br /><pre>lsof -i :8080<br /></pre><br /><br />On Windows you can do the following (well, assuming that you have the <span style="font-family: Courier New, Courier, monospace;">grep </span>available, for instance installing <a href="https://msysgit.github.io/" target="_blank">Git Bash</a> and adding it's&nbsp;<span style="font-family: Courier New, Courier, monospace;">cmd </span>directory to your <span style="font-family: Courier New, Courier, monospace;">PATH</span>&nbsp;environment variable):<br /><br /><pre>netstat -nabo | grep :8080</pre>

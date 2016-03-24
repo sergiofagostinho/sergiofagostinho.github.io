@@ -1,0 +1,17 @@
+---
+layout: post
+title: Really resetting IIS
+date: '2015-01-07T11:48:00.001Z'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Visual Studio
+- ASP.NET
+- Batch file
+- IIS
+modified_time: '2015-05-13T22:30:41.225+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-9205456535387433983
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/01/really-resetting-iis.html
+---
+
+If you are developing ASP.Net web sites with IIS on your local machine it's not very uncommon to update libraries and sometimes IIS just gets messed up, something along the lines of "<i>Could not load file of assembly...</i>".<br /><br />My recipe for this kind of issues is usually something like:<br /><br /><ul><li>clean&nbsp;+ rebuild from Visual Studio</li><li>iisreset</li></ul><div>If that doesn't work, then I might get desperate and do this:</div><ul><li>iisreset /stop</li><li>delete the web site from IIS Manager</li><li>delete the "bin" and "obj" folders for the project</li><li>restart Visual Studio</li><li>restart Windows</li><li>leave the room and start over (!)</li></ul><div>But today, I've remembered that somewhere in between, it might be useful to delete the Temporary ASP.NET files, thanks to <a href="http://stackoverflow.com/questions/8269386/could-not-load-file-or-assembly-the-parameter-is-incorrect">StackOverflow</a>.</div><div><br /></div><div>So, why not automatize this in a batch file? Here the prototype for my "really_clean_iis.bat":</div><div><pre>@echo off<br /><br />echo stopping IIS...<br />iisreset /stop<br /><br />rem del %TEMP%\Temporary ASP.NET Files\*.*<br /><br />echo deleting temporary ASP.NET files for .NET 2.0/4.0 32/64 bit...<br />del C:\Windows\Microsoft.NET\Framework\v2.0.50727\"Temporary ASP.NET Files"\*.* /s /q<br />del C:\Windows\Microsoft.NET\Framework\v4.0.30319\"Temporary ASP.NET Files"\*.* /s /q<br />del C:\Windows\Microsoft.NET\Framework64\v2.0.50727\"Temporary ASP.NET Files"\*.* /s /q<br />del C:\Windows\Microsoft.NET\Framework64\v4.0.30319\"Temporary ASP.NET Files"\*.* /s /q<br /><br />echo starting IIS..<br />iisreset /start<br /></pre></div>

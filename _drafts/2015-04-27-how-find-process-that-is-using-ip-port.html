@@ -1,0 +1,13 @@
+---
+layout: post
+title: How find a process that is using an IP port in Linux
+date: '2015-04-27T14:54:00.003+01:00'
+author: Sérgio Agostinho
+tags:
+- Linux
+modified_time: '2015-04-27T14:54:34.080+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-8427605070115992862
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/04/how-find-process-that-is-using-ip-port.html
+---
+
+<br /><br /># check which port is being used be Jenkins, in this case it's 8080<br />lsof -i :8080<br /><br /># check what is the process id (PID) for Jenkins, in this case it's 666<br />kill -9 666<br /><br />service jenkins restart

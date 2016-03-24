@@ -1,0 +1,18 @@
+---
+layout: post
+title: svn:ignore for Visual Studio
+date: '2012-10-09T15:51:00.001+01:00'
+author: Sérgio Agostinho
+tags:
+- TortoiseSVN
+- VisualSVN
+- Visual Studio
+- git
+- Subversion
+modified_time: '2014-07-14T13:19:12.232+01:00'
+thumbnail: http://4.bp.blogspot.com/-vSC1E1K-ouQ/UHQ6zfNrUNI/AAAAAAAAC8o/EBBWrSPRqto/s72-c/svn_ignore.png
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-6328789815290998488
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/10/svnignore-for-visual-studio.html
+---
+
+Similar to other source control systems, you can add an ignore list of files that should not be under source control. In subversion, this is the <a href="http://www.visualsvn.com/support/svnbook/advanced/props/special/ignore/" target="_blank">svn:ignore</a> property. If you are using Visual Studio and the&nbsp;<a href="http://www.visualsvn.com/visualsvn/" target="_blank">VisualSVN</a> plugin, this can be achieved in the following way:<br /><br /><ul><li>Right-click the solution &gt; VisualSVN &gt; Properties...</li><li>Click on New... &gt; Advanced</li><ul><li>In the Property name drop-down select svn:ignore</li><li>In the Property value text box put the list of expressions you want to ignore,&nbsp;separated&nbsp;by the space character.</li></ul></ul><div class="separator" style="clear: both; text-align: center;"></div><div>Here is an example (work in progress, probably this will have the same content as my <a href="http://sergioagostinho-net.blogspot.pt/2012/09/gitignore-for-visual-studio-2010.html">.gitignore</a>):</div><div><br /><pre>*.suo</pre><pre>*.user</pre><pre>*.dbmdl</pre><pre>*.resharper</pre><pre>aspnet_client</pre><pre>thumbs.db</pre><pre>bin</pre><pre>Bin</pre><pre>obj</pre><pre>Obj</pre><pre>TestResults</pre><pre>debug</pre><pre>Debug</pre><pre>release</pre><pre>Release</pre><div><br /></div><div><br />You'll end up with something like this (<a href="http://tortoisesvn.net/" target="_blank">TortoiseSVN</a>):<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/-vSC1E1K-ouQ/UHQ6zfNrUNI/AAAAAAAAC8o/EBBWrSPRqto/s1600/svn_ignore.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://4.bp.blogspot.com/-vSC1E1K-ouQ/UHQ6zfNrUNI/AAAAAAAAC8o/EBBWrSPRqto/s320/svn_ignore.png" height="144" width="320" /></a></div><br /><b>Edit (2014-02-20)</b><br /><br />Fixed an error in my example, <a href="http://tortoisesvn.net/docs/nightly/TortoiseSVN_en/tsvn-dug-ignore.html" target="_blank">each entry must be in a single line</a>.<br /><br /><b>Update (2014-05-21)</b><br /><br />Updated list.</div></div>

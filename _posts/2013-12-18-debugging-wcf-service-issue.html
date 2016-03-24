@@ -1,0 +1,16 @@
+---
+layout: post
+title: Debugging a WCF service issue
+date: '2013-12-18T13:22:00.000Z'
+author: Sérgio Agostinho
+tags:
+- ASP.NET
+- logging
+- HTTP
+- WCF
+modified_time: '2013-12-18T13:22:15.585Z'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-3322581595309678140
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2013/12/debugging-wcf-service-issue.html
+---
+
+A common scenario is your web service failing, but no application errors occur (assuming that you are catching all exceptions and logging them, that is). This is what I usually try:<br /><br /><ul><li><a href="http://msdn.microsoft.com/en-us/library/0x5wc973(v=vs.100).aspx" target="_blank">Turn on ASP.NET tracing</a>&nbsp;(this is particularly important if you are setting&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ms731336(v=vs.110).aspx" target="_blank">aspNetCompatibilityEnabled</a>&nbsp;to "true")</li><li><a href="http://msdn.microsoft.com/en-us/library/ms730064(v=vs.110).aspx" target="_blank">Turn on WCF logging</a> (don't forget to turn it off!)</li><li>Take a look at Windows Event Viewer</li></ul>

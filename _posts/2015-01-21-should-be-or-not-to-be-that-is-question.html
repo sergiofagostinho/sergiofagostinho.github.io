@@ -1,0 +1,17 @@
+---
+layout: post
+title: Should be or not to be, that is the question
+date: '2015-01-21T15:13:00.001Z'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- TDD
+- BDD
+- FluentAssertions
+- NUnit
+modified_time: '2015-05-13T22:30:52.328+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-1858961458243483944
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/01/should-be-or-not-to-be-that-is-question.html
+---
+
+If you are doing a lot of unit or acceptance testing, you've probably have been using <a href="https://github.com/dennisdoomen/fluentassertions">FluentAssertions</a>&nbsp;library (if not, give it a try!). This library presents a very good alternative to NUnit's Assert class (or equivalent unit test framework you are using). However, this are some caveats. One of them is that the ShouldBeEquivalent() extension method is <b>case-sensitive </b>when comparing string (and there is no AssertionOptions to do that). However, if you use the Should() extension method, it is <b>case-insensitive</b>. Putting it in simply terms:<br /><br /><pre>        [Test]<br />        public void ThisWayItsCaseInsenstive()<br />        {<br />            var foo = "XPTO";<br />            var bar = "xpto";<br /><br />            foo.Should().BeEquivalentTo(bar);<br />        }<br /><br />        [Test]<br />        [ExpectedException(typeof(AssertionException))]<br />        public void ThisWayItsNot()<br />        {<br />            var foo = "XPTO";<br />            var bar = "xpto";<br /><br />            foo.ShouldBeEquivalentTo(bar);<br />        }<br /></pre><br />Yes, I know it's <a href="http://www.nudoq.org/#!/Packages/FluentAssertions/FluentAssertions/StringAssertions">documented</a>, but it's <i>not </i>obvious, which is a very <a href="http://gotocon.com/cph-2014-training-cancelled/presentation/Write%20code%20that%20doesn't%20suck">unfortunate design decision</a>.

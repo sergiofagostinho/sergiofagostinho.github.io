@@ -1,0 +1,15 @@
+---
+layout: post
+title: Hiding protobuffer generated code in a Java library
+date: '2015-04-27T13:23:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- Java
+- Batch file
+- Protocol Buffers
+modified_time: '2015-05-13T22:34:41.753+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-5033227190272747399
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/04/hiding-protobuffer-generated-code-in.html
+---
+
+<i>In this post I describe how to hide Protocol Buffer's generated code in a Java library.</i><br /><br />Recently, I was developing a Java library that used Google's <a href="https://developers.google.com/protocol-buffers/docs/javatutorial" target="_blank">Protocol Buffers</a> as a serialization format. As part of the design of the library, we only expose some classes, the remaining implementation has&nbsp;<a href="https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html" target="_blank">package-private</a> visibility. In particular, we de not want to exposed the generated object, as it was mapped into a domain class, but the <span style="font-family: Arial, Helvetica, sans-serif;">protoc.exe</span> executable produces public code. The solution was to perform a post-processing step invoking "protoc" to remove all public definitions used the <a href="http://unixhelp.ed.ac.uk/CGI/man-cgi?sed" target="_blank">sed</a> command (if you are on Windows, you should have this command available by installing <a href="https://msysgit.github.io/" target="_blank">Git Bash</a>). Here is an example of a batch file to this on Windows:<br /><br /><pre>@echo off<br />:: compiling ProtoBuff definition<br />protoc.exe --java_out=java\ java\pt\invisibleobjects\MyObject.proto<br />:: setting package-private class visibility for classes<br />sed -i 's/^public final class/final class/' java\pt\invisibleobjects\MyObject.java<br />:: setting package-private class visibility for static classes<br />sed -i 's/^public static final class/static final class/' java\pt\invisibleobjects\MyObject.java<br />:: setting package-private class visibility for enums<br />sed -i 's/^public enum/enum/' java\pt\invisibleobjects\MyObject.java<br /></pre>

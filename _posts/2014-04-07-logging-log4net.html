@@ -1,0 +1,16 @@
+---
+layout: post
+title: Logging log4net
+date: '2014-04-07T08:42:00.001+01:00'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Visual Studio
+- logging
+- log4net
+modified_time: '2015-05-13T22:30:24.131+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-4899806260593864185
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2014/04/logging-log4net.html
+---
+
+When logging doesn't work, you may need to log the log.<br /><br />Basically, you have to add this to &lt;appSettings&gt;:<br /><br />&nbsp; &nbsp; &lt;add key="log4net.Internal.Debug" value="true"/&gt;<br /><div><br /></div><div>This should enable you to see some output on the console (or Visual Studio if you running an app from there). If this doesn't suit your needs, then writing to a file may be appropriate, by adding the following to the &lt;system.diagnostics&gt; section:</div><div><br /></div><div><div>&nbsp; &nbsp; &lt;trace autoflush="true"&gt;</div><div>&nbsp; &nbsp; &nbsp; &lt;listeners&gt;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &lt;add name="textWriterTraceListener" type="System.Diagnostics.TextWriterTraceListener" initializeData="C:\log4net.txt" /&gt;</div><div>&nbsp; &nbsp; &nbsp; &lt;/listeners&gt;</div><div>&nbsp; &nbsp; &lt;/trace&gt;</div></div><div><br /></div><br />source:&nbsp;<a href="http://stackoverflow.com/questions/756125/how-to-track-down-log4net-problems" target="_blank">Stack Overflow</a> and <a href="http://logging.apache.org/log4net/release/faq.html" target="_blank">Apache log4net FAQ</a><br /><br />

@@ -1,0 +1,17 @@
+---
+layout: post
+title: Maximum client concurrent HTTP connections to a web service
+date: '2014-03-05T12:20:00.000Z'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Load Testing
+- HTTP
+- WCF
+- Specflow
+modified_time: '2015-05-13T22:30:14.882+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-2932578284704117947
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2014/03/maximum-client-concurrent-http.html
+---
+
+While performing some load testing on a web service (using Specflow), we've stumbled on a two concurrent connections limitation. Apparently, the limitation is in the <a href="http://en.wikipedia.org/wiki/HTTP_1.1#Persistent_connections" target="_blank">HTTP/1.1</a> .NET client implementation, as described in <a href="http://social.msdn.microsoft.com/Forums/vstudio/en-US/5b6f031f-f40f-4f74-9f84-547773270956/iiswas-only-handles-two-requests-per-client-in-parallel?forum=wcf" target="_blank">here</a>. Our solution was to set the&nbsp;<a href="http://msdn.microsoft.com/en-us/library/system.net.servicepointmanager.defaultconnectionlimit(v=vs.100).aspx" target="_blank">ServicePointManager.DefaultConnectionLimit</a> property &nbsp;to the number of concurrent requests we want to test, just before <a href="http://msdn.microsoft.com/en-us/library/ms585867(v=vs.100).aspx" target="_blank">creating the channel</a>.<br /><br />

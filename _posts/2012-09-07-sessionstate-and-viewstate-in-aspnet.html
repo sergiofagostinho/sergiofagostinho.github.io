@@ -1,0 +1,16 @@
+---
+layout: post
+title: SessionState and ViewState in ASP.NET
+date: '2012-09-07T15:40:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- ASP.NET
+- Silverlight
+- Best Practices
+modified_time: '2015-05-13T22:27:09.532+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-7898943551549169082
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/sessionstate-and-viewstate-in-aspnet.html
+---
+
+Fine&nbsp;tuning&nbsp;ASP.NET applications is a<a href="http://blogs.msdn.com/b/mcsuksoldev/archive/2011/01/19/common-performance-issues-on-asp-net-web-sites.aspx" target="_blank"> very extensive topic</a>. However, some features are enabled and may not be needed. For example,&nbsp;<b>Session </b>and <b>ViewState&nbsp;</b>are not really needed for simple pages (i.e. if your ASP.NET page is basically hosting a single page application in Silverlight). To do this, just open the .aspx (markup) file and add the last two attributes:<br /><br /><pre>&lt;%@ Page Language="c#" AutoEventWireup="true" CodeBehind="Foo.aspx.cs" Inherits="Acme.Foobar" <b>EnableSessionState="false"</b> <b>EnableViewState="false" </b>%&gt;</pre><br /><i>Note: this is basically a <a href="http://pontonetpt.org/blogs/labs2/archive/2011/03/28/sessionstate-e-viewstate-em-asp-net.aspx" target="_blank">repost from my previous blog</a>.</i>

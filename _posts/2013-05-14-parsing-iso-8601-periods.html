@@ -1,0 +1,15 @@
+---
+layout: post
+title: Parsing ISO 8601 periods
+date: '2013-05-14T19:46:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Globalization
+- Best Practices
+modified_time: '2015-05-13T22:29:34.527+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-5548382806744933924
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2013/05/parsing-iso-8601-periods.html
+---
+
+If you have to deal with <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> duration periods, such as "P1Y2M10DT2H30M", you can just parse it to a TimeSpan using the <a href="http://msdn.microsoft.com/en-us/library/system.xml.xmlconvert.totimespan%28v=VS.90%29.aspx" target="_blank">XmlConvert.ToTimeSpan</a>() method. I'm not sure why this is isn't supported by TimeSpan directly, so thanks to <a href="http://stackoverflow.com/questions/3511347/convert-iso-8601-formatted-time-period-to-ticks-miliseconds" target="_blank">Stack Overflow</a>.

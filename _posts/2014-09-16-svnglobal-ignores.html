@@ -1,0 +1,14 @@
+---
+layout: post
+title: svn:global-ignores
+date: '2014-09-16T15:35:00.002+01:00'
+author: Sérgio Agostinho
+tags:
+- TortoiseSVN
+- Subversion
+modified_time: '2014-09-17T10:15:44.292+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-8228321727262858005
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2014/09/svnglobal-ignores.html
+---
+
+After struggling for some time in making sure that the <span style="font-family: Courier New, Courier, monospace;">svn:ignore</span>property is applied recursively, I've recently realized that <a href="http://subversion.apache.org/docs/release-notes/1.8.html#repos-dictated-config">Subversion 1.8.x introduced</a> the <span style="font-family: Courier New, Courier, monospace;">svn:global-ignores</span>, which makes sure you just need to set a property in the root folder.<br />It uses the same values as <span style="font-family: Courier New, Courier, monospace;">svn:ignore</span>, and will work mixed with it (values are appended). By the way, currently TortoiseSVN (v 1.8.7) doesn't work at 100% (not all folders and files are ignored in the first commit), but probably it will be fixed in the future.

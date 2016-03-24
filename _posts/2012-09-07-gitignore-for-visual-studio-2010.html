@@ -1,0 +1,16 @@
+---
+layout: post
+title: ".gitignore for Visual Studio 2010"
+date: '2012-09-07T15:21:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- Visual Studio
+- NuGet
+- git
+- ReSharper
+modified_time: '2012-09-20T09:04:51.219+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-6738001586197372438
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/gitignore-for-visual-studio-2010.html
+---
+
+If you are using an IDE to develop your applications (who doesn't these days?), you have probably stumbled on a lot of files that are automatically generated which you don't really need to add to source control.&nbsp;If you are using Visual Studio and plugins/extensions (such as&nbsp;<a href="http://www.jetbrains.com/resharper/" target="_blank">ReSharper</a>&nbsp;and&nbsp;<a href="http://nuget.org/" target="_blank">NuGet</a>) these are quite some files.&nbsp;&nbsp;The "<a href="http://git-scm.com/docs/gitignore" target="_blank">.gitignore</a>" file was designed to solve just that: putting it in the root of your source control directory will prevent "git add ." commands from adding those files/directories.&nbsp;My current file is based on <a href="https://github.com/github/gitignore/blob/master/CSharp.gitignore" target="_blank">this one&nbsp;from github</a>, with extensions from <a href="http://stackoverflow.com/questions/2143956/gitignore-for-visual-studio-projects-and-solutions" target="_blank">this one from stackoverflow</a>, and finally a line that I added for ReSharper user files.<br /><br />You can download the file <a href="https://www.dropbox.com/sh/nvr5572xqrrk3af/ftxBicRafq/.gitignore.txt" target="_blank">here</a> (be sure to remove the ".txt" extension).<br /><br /><i>Note: this is basically a <a href="http://pontonetpt.org/blogs/labs2/archive/2012/06/18/gitignore.aspx" target="_blank">repost from my previous blog</a>.</i>

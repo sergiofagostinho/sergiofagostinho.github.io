@@ -1,0 +1,16 @@
+---
+layout: post
+title: Mocking an internal interface with Moq
+date: '2013-08-09T15:31:00.001+01:00'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Moq
+- Best Practices
+- Unit Testing
+modified_time: '2015-05-13T22:29:53.264+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-6781205200451159766
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2013/08/mocking-internal-interface-with-moq.html
+---
+
+If by some reason you need to Mock an internal interface using Moq, you might get the infamous exception while running your unit tests:<br /><pre>System.TypeLoadException : Type 'I<b>Something</b>`1Proxy<b>RandomGuid</b>' from assembly 'DynamicProxyGenAssembly2, Version=0.0.0.0, Culture=neutral, PublicKeyToken=<b>YetAnotherGuid</b>' is attempting to implement an inaccessible interface.</pre><br />Assuming that you already added the <a href="http://msdn.microsoft.com/en-us/library/system.runtime.compilerservices.internalsvisibletoattribute.aspx" target="_blank">InternalsVisibleTo</a> from your library to your unit test project, you'll also need to add an InternalsVisibleTo to&nbsp;<a href="http://blog.ashmind.com/2008/05/09/mocking-internal-interfaces-with-moq/" target="_blank">DynamicProxyGenAssembly2</a>. However, unlike the author in the blog post, in my machine it only works if I remove the PublicKey, something like:<br /><br /><pre>[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")] <br /></pre>

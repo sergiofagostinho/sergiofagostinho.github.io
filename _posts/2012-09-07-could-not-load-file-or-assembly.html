@@ -1,0 +1,14 @@
+---
+layout: post
+title: Could not load file or assembly ...
+date: '2012-09-07T16:30:00.001+01:00'
+author: Sérgio Agostinho
+tags:
+- ASP.NET
+- IIS
+modified_time: '2012-09-07T16:30:54.505+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-3471246522263959564
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/could-not-load-file-or-assembly.html
+---
+
+<br />If you ever caught the infamous error:<br /><br /><pre>Server Error in '/ws' Application.<br /><br />Could not load file or assembly 'App_Web_6sedkqth, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.<br /></pre><br />And application pool recycling, site restart or even the good old <b>iisreset</b> won't fix it, then it might be a problem with ASP.NET temporary files.<br /><br />The solution is stopping IIS (alternatively, you can just stop a&nbsp;specific&nbsp;application pool):<br /><br /><pre>iisreset /stop<br /></pre><br />Deleting all&nbsp;the files (or part of them, if just stopped a specific application pool) from the following directory:<br /><br /><pre>C:\Windows\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files<br /><br /></pre>And restart IIS:<br /><br /><pre>iisreset /start</pre><br /><i>Note: this is basically a <a href="http://pontonetpt.org/blogs/labs2/archive/2011/11/29/could-not-load-file-or-assembly.aspx" target="_blank">repost from my previous blog</a>.</i>

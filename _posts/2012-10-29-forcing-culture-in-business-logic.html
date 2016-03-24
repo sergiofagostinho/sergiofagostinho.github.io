@@ -1,0 +1,21 @@
+---
+layout: post
+title: Forcing a Culture in the business logic
+date: '2012-10-29T11:02:00.004Z'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- ASP.NET
+- Windows
+- TopShelf
+- Globalization
+- WCF
+- Best Practices
+- Castle Windsor
+- NUnit
+modified_time: '2015-05-13T22:28:43.228+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-4102437466340906456
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/10/forcing-culture-in-business-logic.html
+---
+
+Not exactly a new topic, but a reminder. In my opinion, it's a good practise for your application business logic not to assume that it will be run in a particular Windows configuration, namely a specific culture. An "innocent" ToString() or Parse() method call in a double or DateTime struct is all that takes to break your code. Last week that happened at the office, some of our unit tests were only failing on some development machines. It turned out that some of team members have Windows&nbsp;configured&nbsp;to use GB English regional settings, while others have been using PT Portuguese settings. One approach to fix this is to force a culture in all calls of these methods (US English, for instance), but I think that is boring and easy to overlook. I prefer to force the culture for all calls, something like:<br /><br /><pre>Thread.CurrentThread.CurrentCulture =&nbsp;</pre><pre>   new CultureInfo("en-US");<br /></pre><pre></pre>&nbsp;Here's how I have been doing it, depending on the component type.<br /><br /><h3><b>WCF Service</b></h3>Usually, I would put the code line in the Application_Start() method of the Global.asax class, since it would apply to every service in the project. However, the last time I've did it, we were using Castle Windsor for dependency injection, and this doesn't seem to work, as the container&nbsp;instantiates&nbsp;the service object in another thread. Solution: put the line in the service constructor.<br /><br />Since we are also using <a href="http://msdn.microsoft.com/en-us/library/system.threading.threadpool.aspx" target="_blank">ThreadPool</a> for some of the tasks, I also had to add the line to the callback method.<br /><br />Yes, I could also have used the <a href="http://msdn.microsoft.com/en-us/library/hy4kkhe0(v=vs.100).aspx" target="_blank">&lt;globalization&gt;</a> tag in the web.config, but that would imply activating ASP.NET compatibility in WCF, which I didn't want to (no problem on doing so, but I just wanted to avoid unnecessary entropy).<br /><br /><h3>Console Application / Windows Service</h3>Usually, I would just put the line in the Program class Main method, but since we are using TopShelf to abstract some of the Windows service boilerplate code, I had to put it elsewhere. Basically, in the <a href="http://docs.topshelf-project.com/en/latest/configuration/config_api.html#custom-service" target="_blank">WhenStarted()</a> callback.<br /><br /><h3>NUnit Test</h3>Unit tests are basically class libraries, so there is no central point method. The best I came up with was putting the code in the <a href="http://www.nunit.org/index.php?p=setup&amp;r=2.4.8" target="_blank">StartUp method</a>, for every unit test class. Since I'm being lazy, in reality I've only added it in every test class that was failing because of culture settings.<br /><br />

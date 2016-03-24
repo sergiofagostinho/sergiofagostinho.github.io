@@ -1,0 +1,15 @@
+---
+layout: post
+title: Unable to cast COM object of type...
+date: '2012-08-30T16:33:00.000+01:00'
+author: Sérgio Agostinho
+tags:
+- Visual Studio
+- Windows
+- SQL Server
+modified_time: '2012-08-30T16:35:07.234+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-1300470723159472804
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/08/unable-to-cast-com-object-of-type.html
+---
+
+Was the error that bugged me for three days,&nbsp;any time&nbsp;I tried to connect to a database in SQL Server Management Studio. Re-installing the Management Studio or the whole SQL Server wasn't working. Neither the workarounds for registering some specific DLLs, or event (gasp!) changing some GUIDs in the registry. What eventually fixed my problem was running the following command in the command prompt (Administrator Mode) and rebooting:<br /><br /><pre>sfc /scannow<br /></pre><br />(SFC stands for <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa382541(v=vs.85).aspx" target="_blank">System File Checker</a>)<br /><br />It's kind of weird that this issue has been <a href="http://social.msdn.microsoft.com/forums/en-US/sqltools/thread/d5d3e5fc-d8ce-4f42-b7ea-9bbbb7756a20/" target="_blank">around since 2005</a>, officially&nbsp;<a href="http://connect.microsoft.com/SQLServer/feedback/details/482103/unable-to-cast-com-object-of-type-system-comobject-to-interface-type-microsoft-visualstudio-ole-interop-iserviceprovider" target="_blank">reported to Microsoft in 2009</a> and it's still bugging people today (like me) using Windows 7, Visual Studio 2010 and SQL Server 2008 R2. For the record&nbsp;<a href="http://www.davidmoore.info/2009/08/19/solution-explorer-open-each-folder-in-same-window-error-and-sql-management-studio-ie-and-team-explorer-errors/" target="_blank">here is where I found the fix</a>.

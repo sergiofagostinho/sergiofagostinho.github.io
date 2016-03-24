@@ -1,0 +1,14 @@
+---
+layout: post
+title: Don't forget to GO after ALTER TRIGGER
+date: '2012-10-10T17:10:00.002+01:00'
+author: Sérgio Agostinho
+tags:
+- T-SQL
+- SQL Server
+modified_time: '2012-10-10T17:10:22.614+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-8727323495835770332
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/10/dont-forget-to-go-after-alter-trigger.html
+---
+
+Today I found peculiar issue while doing SQL scripts...<br /><br />A couple of months ago, I did an SQL script that, among other things had an <a href="http://msdn.microsoft.com/en-us/library/ms176072.aspx" target="_blank">ALTER TRIGGER</a> statement followed by an <a href="http://msdn.microsoft.com/en-us/library/ms177523.aspx" target="_blank">UPDATE</a> statement. This particular trigger was&nbsp;supposed&nbsp;to add data to a history table. For some strange reason though, I was having trouble doing a particular update statement, because it was&nbsp;being&nbsp;undone. After a couple of hours, I found the cultrip: there was an update statement <i>inside</i> the trigger. What happened? I didn't do a <a href="http://msdn.microsoft.com/en-us/library/ms188037.aspx" target="_blank">GO</a> statement between the trigger and the update statement.<br />(Yeah, maybe this is obvious for all the SQL gurus out there, but it was not for me. Lesson learnt. :))<br /><br /><br />

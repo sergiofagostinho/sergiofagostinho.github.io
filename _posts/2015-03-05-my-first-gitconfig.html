@@ -1,0 +1,13 @@
+---
+layout: post
+title: My first .gitconfig
+date: '2015-03-05T16:11:00.001Z'
+author: Sérgio Agostinho
+tags:
+- git
+modified_time: '2015-03-05T16:11:51.797Z'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-8641453772400534630
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2015/03/my-first-gitconfig.html
+---
+
+I've recently started to use git on an everyday basis. Here's a couple of configurations that you may find useful, if you're just getting started:<br /><br /><pre>[http]<br /> sslVerify = false<br /> postBuffer = 104857600<br />[push]<br /> default = simple<br />[user]<br /> name = James Bond<br /> email = bond.james@mi6.com<br />[color]<br /> ui = auto<br />[core]<br /> autocrlf = true<br /> excludesfile = C:\\Users\\james\\Documents\\gitignore_global.txt<br />[difftool "sourcetree"]<br /> cmd = 'C:/Program Files (x86)/WinMerge/WinMergeU.exe' -e -u -dl Mine -wr -dr Theirs $LOCAL $REMOTE $MERGED<br />[merge]<br />    tool = kdiff3<br />[mergetool "kdiff3"]<br />    cmd = 'C:/Program Files/KDiff3/kdiff3' $BASE $LOCAL $REMOTE -o $MERGED<br />[credential]<br /> helper = store<br /></pre><br />A couple of notes:<br /><br /><ul><li>You set all of this in Git Bash using the <a href="http://git-scm.com/docs/git-config" target="_blank">git-config</a> command.</li><li>Your ".gitconfig" file is usually found in the root of your user folder.</li><li>If you have pluralsight, you can check the <a href="http://www.pluralsight.com/courses/git-fundamentals" target="_blank">Git Fundamentals</a> course.</li></ul>

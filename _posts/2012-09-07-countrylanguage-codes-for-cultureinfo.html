@@ -1,0 +1,14 @@
+---
+layout: post
+title: Country/language codes for CultureInfo
+date: '2012-09-07T15:51:00.002+01:00'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Globalization
+modified_time: '2015-05-13T22:27:25.024+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-7745682097676668909
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/09/countrylanguage-codes-for-cultureinfo.html
+---
+
+If you work frequently with internationalization/globalization you've probably questioned which cultures are supported in the <a href="http://msdn.microsoft.com/en-us/library/system.globalization.cultureinfo.aspx" target="_blank">CultureInfo class</a>. As far as I know, there is no such page in MSDN. However, for the record, the code is composed by a two letter lower case ISO code for language (e.g. "pt", "en") and two letter upper case ISO code for country (e.g. "PT", "US"), separated by the hyphen character ("-"). Both of these codes are documented in&nbsp;Wikipedia&nbsp;as <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha 2</a> and <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">ISO 639-1</a>,&nbsp;respectively.<br /><br /><i>Note: this is basically a <a href="http://pontonetpt.org/blogs/labs2/archive/2012/06/12/c-243-digos-l-237-ngua-pa-237-s.aspx" target="_blank">repost from my previous blog</a>.</i><br /><i><br /></i><b>Update (2013-03-12)</b><br /><b><br /></b>If you need to match cultures with countries (via the ISO 3 letter code), the following MSDN page might be useful:&nbsp;<a href="http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx" target="_blank">National Language Support (NLS) API Reference</a>.

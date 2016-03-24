@@ -1,0 +1,15 @@
+---
+layout: post
+title: EF POCO objects and WCF
+date: '2012-10-29T09:14:00.000Z'
+author: Sérgio Agostinho
+tags:
+- ".Net"
+- Entity Framework
+- WCF
+modified_time: '2015-05-13T22:28:19.228+01:00'
+blogger_id: tag:blogger.com,1999:blog-6105644668642718046.post-8639629254820922255
+blogger_orig_url: http://sergioagostinho-dev.blogspot.com/2012/10/ef-poco-objects-and-wcf.html
+---
+
+We have recently started to use Entity Framework using a <a href="http://weblogs.asp.net/scottgu/archive/2010/07/16/code-first-development-with-entity-framework-4.aspx" target="_blank">Code First approach</a>, including POCO classes. However, when we tried to use POCO object classes as parameters of web service calls, we got the following exception:<br /><br /><pre>System.ServiceModel.CommunicationException: There was an error while trying to serialize parameter http://tempuri.org/:foo. The InnerException message was 'Type 'System.Data.Entity.DynamicProxies.FooClass_F952F109218D94AD325682E75C75F0EFF0D59311269F52F267E249FB9D8F7196' with data contract name 'FooClass_F952F109218D94AD325682E75C75F0EFF0D59311269F52F267E249FB9D8F7196:http://schemas.datacontract.org/2004/07/System.Data.Entity.DynamicProxies' is not expected. Consider using a DataContractResolver or add any types not known statically to the list of known types - for example, by using the KnownTypeAttribute attribute or by adding them to the list of known types passed to DataContractSerializer.'.  Please see InnerException for more details.<br /></pre><br />What's happening? Well, it happens that a runtime, POCO objects are not really POCO, but proxies that wrap the original POCO objects. WCF knows the POCO type, but not the subtype of the proxy class. How to fix it? There are several approaches, we just opted by a simple workaround: all our classes that need to be passed as parameters for a web service calls now implement <a href="http://msdn.microsoft.com/en-us/library/system.icloneable(v=vs.100).aspx" target="_blank">ICloneable</a> interface and are cloned just before the call.<br /><br />Perhaps a more elegant approach would be using a specific class for the parameter of the WCF service and implement a mapper between the two types, but if you need a quick workaround the clone approach does the trick.
