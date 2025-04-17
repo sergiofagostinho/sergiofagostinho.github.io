@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MtG Land Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Belgrano&display=swap');
+
+    body {
+      font-family: 'Belgrano', serif;
+      background-color: #2d1e1e;
+      color: #f8f1e5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #f8d77d;
+      text-shadow: 2px 2px #000;
+      text-align: center;
+    }
+
+    .card-frame {
+      /*background: url('https://i.imgur.com/xV2F7qR.png') no-repeat center;*/
+      background-size: cover;
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      border: 4px solid #caa85d;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    select, input[type="number"], input[type="checkbox"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #555;
+      font-size: 1rem;
+      background-color: #f8f1e5;
+      color: #2d1e1e;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      width: 48%;
+      padding: 0.7rem;
+      background-color: #f8d77d;
+      color: #2d1e1e;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ffe299;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .output {
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #90ee90;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .buttons {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>MtG Land Calculator</h1>
+  <div class="card-frame">
+    <form id="landCalculator" onsubmit="calculateLandCount(event)">
+      <label for="ds">Deck Size</label>
+      <select id="ds" onchange="toggleCompanion()">
+        <option value="99" selected>99</option>
+        <option value="60">60</option>
+      </select>
+
+      <div id="companionField" style="display: none;">
+        <label class="checkbox-label">
+          <input type="checkbox" id="companion"> Do you have a Companion?
+        </label>
+      </div>
+
+      <label for="amv">Average Mana Value of Your Deck</label>
+      <input type="number" id="amv" min="0.01" step="0.01" value="3" required>
+
+      <label for="ccd">Number of Cheap Card Draw or Mana Ramp Spells</label>
+      <input type="number" id="ccd" min="0" step="1" value="0" required>
+
+      <div class="buttons">
+        <button type="submit">Calculate</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+      </div>
+    </form>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function toggleCompanion() {
+      const ds = document.getElementById('ds').value;
+      const companionField = document.getElementById('companionField');
+      companionField.style.display = ds === '60' ? 'block' : 'none';
+    }
+
+    function calculateLandCount(event) {
+      event.preventDefault();
+
+      const ds = parseInt(document.getElementById('ds').value);
+      const amv = parseFloat(document.getElementById('amv').value);
+      const ccd = parseInt(document.getElementById('ccd').value);
+      const companionChecked = document.getElementById('companion').checked ? 1 : 0;
+
+      if (isNaN(amv) || amv <= 0) {
+        alert('Please enter a valid Average Mana Value greater than zero.');
+        return;
+      }
+      if (isNaN(ccd) || ccd < 0) {
+        alert('Please enter a valid number of Cheap Card Draw or Mana Ramp spells (zero or more).');
+        return;
+      }
+
+      let landCount;
+
+      if (ds === 99) {
+        landCount = 31.42 + (3.13 * amv) - (0.28 * ccd);
+      } else if (ds === 60) {
+        landCount = 19.59 + (1.9 * amv) - (0.28 * ccd) + (0.27 * companionChecked);
+      } else {
+        alert('Unsupported deck size.');
+        return;
+      }
+
+      const roundedLandCount = Math.round(landCount);
+
+      document.getElementById('output').innerHTML = 
+        `Suggested Land Count: <span>${roundedLandCount}</span>`;
+    }
+
+    function resetForm() {
+      document.getElementById('ds').value = '99';
+      document.getElementById('companionField').style.display = 'none';
+      document.getElementById('companion').checked = false;
+      document.getElementById('amv').value = 3;
+      document.getElementById('ccd').value = 0;
+      document.getElementById('output').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
