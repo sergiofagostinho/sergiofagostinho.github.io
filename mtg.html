@@ -135,6 +135,33 @@
       color: #ffffff;
     }
 
+    .tooltip-icon {
+      cursor: pointer;
+      font-size: 1rem;
+      color: #ffe299;
+      margin-left: 0.3rem;
+      display: inline-block;
+    }
+
+    .tooltip-icon:hover {
+      color: #ffffff;
+    }
+
+    .tooltip-box {
+      display: none;
+      background-color: #2d1e1e;
+      border: 1px solid #caa85d;
+      color: #f8f1e5;
+      padding: 0.6rem;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+
+    label {
+      position: relative;
+    }
   </style>
 </head>
 <body>
@@ -154,15 +181,21 @@
       </div>
 
       <label for="amv">
-        Average Mana Value of Your Deck
-        <span class="tooltip" title="You can get this from your tool of choice (Archideckt, Lens)">&#9432;</span>
+        Average Mana Value of Your Deck 
+        <span class="tooltip-icon" onclick="toggleTooltip('tooltip-amv')">&#9432;</span>
+        <div class="tooltip-box" id="tooltip-amv">
+          You can get this from your tool of choice (Archideckt, Lens)
+        </div>
       </label>
       <input type="number" id="amv" min="0.01" step="0.01" value="3" required>
 
       <label for="ccd">
-        Number of Cheap Card Draw or Mana Ramp spells
-        <span class="tooltip" title='"Cheap" means mana value 2 or less; card draw includes Brainstorm, Faithless Looting, Deadly Dispute; mana ramp spells includes Llanowar Elves, Skirk Prospector, Springleaf Drum, Dark Ritual, Sylvan Scrying, Wolfwillow Haven'>&#9432;</span>
-
+        Number of Cheap Card Draw or Mana Ramp Spells 
+        <span class="tooltip-icon" onclick="toggleTooltip('tooltip-ccd')">&#9432;</span>
+        <div class="tooltip-box" id="tooltip-ccd">
+          "Cheap" means mana value 2 or less; card draw includes Brainstorm, Faithless Looting, Deadly Dispute;
+          mana ramp spells include Llanowar Elves, Skirk Prospector, Springleaf Drum, Dark Ritual, Sylvan Scrying, Wolfwillow Haven.
+        </div>
       </label>
       <input type="number" id="ccd" min="0" step="1" value="0" required>
 
@@ -181,6 +214,18 @@
   </div>
 
   <script>
+
+    function toggleTooltip(id) {
+      const tooltip = document.getElementById(id);
+      const isVisible = tooltip.style.display === 'block';
+      // Hide all tooltips first
+      document.querySelectorAll('.tooltip-box').forEach(t => t.style.display = 'none');
+      // Show this one if it wasn’t open
+      if (!isVisible) {
+        tooltip.style.display = 'block';
+      }
+    }
+    
     function toggleCompanion() {
       const ds = document.getElementById('ds').value;
       const companionField = document.getElementById('companionField');
