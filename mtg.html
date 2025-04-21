@@ -104,6 +104,37 @@
         margin-bottom: 0.5rem;
       }
     }
+
+    .disclaimer {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #caa85d;
+        text-align: center;
+        max-width: 400px;
+        line-height: 1.4;
+    }
+
+    .disclaimer a {
+      color: #ffe299;
+      text-decoration: underline;
+    transition: color 0.3s ease;
+    }
+
+    .disclaimer a:hover {
+      color: #ffffff;
+    }
+
+    .tooltip {
+      cursor: help;
+      font-size: 1rem;
+      color: #ffe299;
+      margin-left: 0.3rem;
+    }
+
+    .tooltip:hover {
+      color: #ffffff;
+    }
+
   </style>
 </head>
 <body>
@@ -122,10 +153,17 @@
         </label>
       </div>
 
-      <label for="amv">Average Mana Value of Your Deck</label>
+      <label for="amv">
+        Average Mana Value of Your Deck
+        <span class="tooltip" title="You can get this from your tool of choice (Archideckt, Lens)">&#9432;</span>
+      </label>
       <input type="number" id="amv" min="0.01" step="0.01" value="3" required>
 
-      <label for="ccd">Number of Cheap Card Draw or Mana Ramp Spells</label>
+      <label for="ccd">
+        Number of Cheap Card Draw or Mana Ramp spells
+        <span class="tooltip" title='"Cheap" means mana value 2 or less; card draw includes Brainstorm, Faithless Looting, Deadly Dispute; mana ramp spells includes Llanowar Elves, Skirk Prospector, Springleaf Drum, Dark Ritual, Sylvan Scrying, Wolfwillow Haven'>&#9432;</span>
+
+      </label>
       <input type="number" id="ccd" min="0" step="1" value="0" required>
 
       <div class="buttons">
@@ -135,6 +173,11 @@
     </form>
 
     <div class="output" id="output"></div>
+  </div>
+
+  <div class="disclaimer">
+    This tool is fan-made and unofficial. Magic: The Gathering™ is a trademark of Wizards of the Coast. The algorithm used is from Frank Kersten's article <a href="https://www.channelfireball.com/article/how-many-lands-do-you-need-in-your-deck-an-updated-analysis/cd1c1a24-d439-4a8e-b369-b936edb0b38a/" target="_blank" rel="noopener">How Many Lands Do You Need in Your Deck? An Updated Analysis</a>.
+    <br/>Calculator design by Sérgio Agostinho (with the help of ChatGPT).
   </div>
 
   <script>
